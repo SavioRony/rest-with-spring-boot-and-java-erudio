@@ -8,11 +8,9 @@ import br.com.erudio.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.module.ResolutionException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
+
 @Service
 public class PersonServices {
     private Logger logger = Logger.getLogger(PersonServices.class.getName());
@@ -20,32 +18,32 @@ public class PersonServices {
     @Autowired
     private PersonRepository repository;
 
-    public PersonVO findById(Long id){
+    public PersonVO findById(Long id) {
         logger.info("Finding one person!");
         var entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
         return DozerMapper.parseObject(entity, PersonVO.class);
     }
 
-    public List<PersonVO> findAll(){
+    public List<PersonVO> findAll() {
         logger.info("Finding all person!");
         return DozerMapper.parseListObject(repository.findAll(), PersonVO.class);
     }
 
-    public PersonVO save(PersonVO person){
+    public PersonVO save(PersonVO person) {
         logger.info("Save one person!");
         var entity = repository.save(DozerMapper.parseObject(person, Person.class));
-        return DozerMapper.parseObject(entity,PersonVO.class);
+        return DozerMapper.parseObject(entity, PersonVO.class);
     }
 
-    public PersonVO update(PersonVO person){
+    public PersonVO update(PersonVO person) {
         logger.info("Update one person!");
         findById(person.getId());
         var entity = repository.save(DozerMapper.parseObject(person, Person.class));
-        return DozerMapper.parseObject(entity,PersonVO.class);
+        return DozerMapper.parseObject(entity, PersonVO.class);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         logger.info("Delete one person!");
         PersonVO person = findById(id);
         repository.delete(DozerMapper.parseObject(person, Person.class));
