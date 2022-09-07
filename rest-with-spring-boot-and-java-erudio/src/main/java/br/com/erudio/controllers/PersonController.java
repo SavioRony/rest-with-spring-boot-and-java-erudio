@@ -1,6 +1,6 @@
 package br.com.erudio.controllers;
 
-import br.com.erudio.model.Person;
+import br.com.erudio.data.vo.v1.PersonVO;
 import br.com.erudio.services.PersonServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,22 +15,22 @@ public class PersonController {
     @Autowired
     private PersonServices services;
     @GetMapping("/{id}")
-    public Person findById(@PathVariable(value = "id") Long id) {
+    public PersonVO findById(@PathVariable(value = "id") Long id) {
         return services.findById(id);
     }
 
     @GetMapping()
-    public List<Person> findAl() {
+    public List<PersonVO> findAl() {
         return services.findAll();
     }
 
     @PostMapping()
-    public Person save(@RequestBody Person person) {
+    public PersonVO save(@RequestBody PersonVO person) {
         return services.save(person);
     }
 
     @PutMapping()
-    public Person update(@RequestBody Person person) {
+    public PersonVO update(@RequestBody PersonVO person) {
         return services.update(person);
     }
 
