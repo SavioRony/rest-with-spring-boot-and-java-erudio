@@ -1,6 +1,7 @@
 package br.com.erudio.controllers;
 
 import br.com.erudio.data.vo.v1.PersonVO;
+import br.com.erudio.data.vo.v2.PersonVOv2;
 import br.com.erudio.services.PersonServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,11 @@ public class PersonController {
 
     @PostMapping()
     public PersonVO save(@RequestBody PersonVO person) {
+        return services.save(person);
+    }
+
+    @PostMapping("/v2")
+    public PersonVOv2 saveV2(@RequestBody PersonVOv2 person) {
         return services.save(person);
     }
 
